@@ -1,8 +1,25 @@
 
   <form action="/dashboard/addvenue" method="POST">
+  
+<div class="field is-horizontal">
+    <div class="field-body">
     <div class="field">
       <label class="label">Venue</label>
-      <input class="input" type="text" placeholder="Enter venue title" name="title">
+    <input class="input" type="text" placeholder="Enter venue name" name="title">
     </div>
-    <button class="button is-link">Add venue</button>
+      <div class="field">
+        <label class="label">Description</label>
+    <input class="input" type="text" placeholder="Enter description" name="description">
+      </div>
+    <div class="field">
+      <label class="label">Latitude</label>
+      <input class="input" type="text" placeholder="Enter latitude" name="latitude">
+    </div>
+    <div class="field">
+      <label class="label">Longtitude</label>
+      <input class="input" type="text" placeholder="Enter longitude" name="longitude">
+    </div>
+    </div>
+    </div>
+    <button class="button is-primary">Add venue</button>
   </form>

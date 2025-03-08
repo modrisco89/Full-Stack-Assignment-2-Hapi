@@ -28,6 +28,10 @@ export const dashboardController = {
       const newvenue = {
         userid: loggedInUser._id,
         title: request.payload.title,
+        description: request.payload.description,
+        latitude: Number(request.payload.latitude),
+        longitude: Number(request.payload.longitude)
+        
       };
       await db.venueStore.addvenue(newvenue);
       return h.redirect("/dashboard");

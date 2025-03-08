@@ -1,9 +1,24 @@
+<div class="columns is-centered is-multiline">
 {{#each venues}}
-  <div class="box box-link-hover-shadow">
-    <h2 class="title">
-      {{title}}
-    </h2>
-    <a href="/venue/{{_id}}" class="button">
+<div class="column is-one-quarter">
+<div class="card has-background-info has-text-white">
+  <div class="card-content">
+    <div class="media">
+      <div class="media-left">
+        <figure class="image is-48x48">
+        <i style="font-size: 48px; color: rgb(255, 255, 255);" class="fas fa-heart"></i>
+        </figure>
+      </div>
+      <div class="media-content">
+        <p class="title is-4 has-text-white">{{title}}</p>
+      </div>
+    </div>
+
+    <div class="content">
+      <p>{{description}}</p>
+      <p>Lat: {{latitude}}</p>
+      <p>Long: {{longitude}}</p>
+          <a href="/venue/{{_id}}" class="button">
       <span class="icon is-small">
         <i class="fas fa-folder-open"></i>
       </span>
@@ -11,5 +26,13 @@
     <a href="/dashboard/deletevenue/{{_id}}" class="button">
       <i class="fas fa-trash"></i>
     </a>
+    </div>
   </div>
+</div>
+</div>
+
 {{/each}}
+</div>
+
+
+

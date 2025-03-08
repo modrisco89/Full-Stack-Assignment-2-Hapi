@@ -4,7 +4,7 @@ import { infoMongoStore } from "./info-mongo-store.js";
 
 export const venueMongoStore = {
   async getAllvenues() {
-    const venues = await venue.find().lean();
+    const venues = await Venue.find().lean();
     return venues;
   },
 
