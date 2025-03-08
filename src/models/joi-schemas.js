@@ -14,7 +14,7 @@ export const UserSpec = {
 
 export const infoSpec = {
   title: Joi.string().required(),
-  artist: Joi.string().required(),
+  artist: Joi.number().required(),
   duration: Joi.date().allow("").optional(),
 };
 

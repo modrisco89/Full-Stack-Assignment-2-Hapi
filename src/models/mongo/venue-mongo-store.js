@@ -32,13 +32,13 @@ export const venueMongoStore = {
 
   async deletevenueById(id) {
     try {
-      await venue.deleteOne({ _id: id });
+      await Venue.deleteOne({ _id: id });
     } catch (error) {
       console.log("bad id");
     }
   },
 
   async deleteAllvenues() {
-    await venue.deleteMany({});
+    await Venue.deleteMany({});
   },
 };

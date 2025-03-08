@@ -4,7 +4,7 @@ const { Schema } = Mongoose;
 
 const infoSchema = new Schema({
   title: String,
-  artist: String,
+  artist: Number,
   duration: String,
   venueid: {
     type: Schema.Types.ObjectId,
