@@ -29,14 +29,14 @@ export const infoMongoStore = {
 
   async deleteinfo(id) {
     try {
-      await info.deleteOne({ _id: id });
+      await Info.deleteOne({ _id: id });
     } catch (error) {
       console.log("bad id");
     }
   },
 
   async deleteAllinfos() {
-    await info.deleteMany({});
+    await Info.deleteMany({});
   },
 
   async updateinfo(info, updatedinfo) {

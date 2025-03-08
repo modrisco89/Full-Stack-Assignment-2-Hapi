@@ -15,7 +15,7 @@ export const UserSpec = {
 export const infoSpec = {
   title: Joi.string().required(),
   artist: Joi.string().required(),
-  duration: Joi.number().allow("").optional(),
+  duration: Joi.date().allow("").optional(),
 };
 
 export const venueSpec = {
