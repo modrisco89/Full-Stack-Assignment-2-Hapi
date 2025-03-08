@@ -1,8 +1,8 @@
-# Playtime Changelog
+# Venuely Changelog
 
 ## version 0.7.0
 
-- introduce Playlist test interface
+- introduce venue test interface
 - refactor tests to use skeleton
 - incorporate nodemon to launch dev server
 
@@ -15,9 +15,9 @@
 
 ## version 0.5.0
 
-- develop mongo stores for user, playlist and track
+- develop mongo stores for user, venue and track
 - install mongoose component
-- introduce playlist store tests
+- introduce venue store tests
 - complete user mem store (fixing test failures)
 
 ## version 0.4.0
@@ -29,7 +29,7 @@
 
 ## version 0.3.0
 
-- support delete playlist + tracks
+- support delete venue + tracks
 - introduce .env for secrets
 - include Joi schema validation for signup form
 - incorporate JSON data stores
@@ -38,10 +38,10 @@
 
 - about controller + view added
 - introduce track model
-- playlist controller + view & partials added
-- support adding trackApi to playlists
+- venue controller + view & partials added
+- support adding trackApi to venues
 - introduce sessions
-- associate playlists with userApi
+- associate venues with userApi
 
 ## version 0.1.0
 
@@ -57,6 +57,6 @@
 - add eslint + prettier config
 -
 - vision and inert hapi components
-- simple in-memory playlist and user models
+- simple in-memory venue and user models
 - account controller + views & partials
-- playlist controller + views & partials
+- venue controller + views & partials

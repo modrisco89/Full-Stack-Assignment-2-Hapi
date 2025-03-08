@@ -1,13 +1,13 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
 
-export const trackApi = {
+export const infoApi = {
   find: {
     auth: false,
     handler: async function (request, h) {
       try {
-        const tracks = await db.trackStore.getAllTracks();
-        return tracks;
+        const infos = await db.infoStore.getAllinfos();
+        return infos;
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }
@@ -18,13 +18,13 @@ export const trackApi = {
     auth: false,
     async handler(request) {
       try {
-        const track = await db.trackStore.getTrackById(request.params.id);
-        if (!track) {
-          return Boom.notFound("No track with this id");
+        const info = await db.infoStore.getinfoById(request.params.id);
+        if (!info) {
+          return Boom.notFound("No info with this id");
         }
-        return track;
+        return info;
       } catch (err) {
-        return Boom.serverUnavailable("No track with this id");
+        return Boom.serverUnavailable("No info with this id");
       }
     },
   },
@@ -33,11 +33,11 @@ export const trackApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        const track = await db.trackStore.addTrack(request.params.id, request.payload);
-        if (track) {
-          return h.response(track).code(201);
+        const info = await db.infoStore.addinfo(request.params.id, request.payload);
+        if (info) {
+          return h.response(info).code(201);
         }
-        return Boom.badImplementation("error creating track");
+        return Boom.badImplementation("error creating info");
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }
@@ -48,7 +48,7 @@ export const trackApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        await db.trackStore.deleteAllTracks();
+        await db.infoStore.deleteAllinfos();
         return h.response().code(204);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
@@ -60,14 +60,14 @@ export const trackApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        const track = await db.trackStore.getTrackById(request.params.id);
-        if (!track) {
-          return Boom.notFound("No Track with this id");
+        const info = await db.infoStore.getinfoById(request.params.id);
+        if (!info) {
+          return Boom.notFound("No info with this id");
         }
-        await db.trackStore.deleteTrack(track._id);
+        await db.infoStore.deleteinfo(info._id);
         return h.response().code(204);
       } catch (err) {
-        return Boom.serverUnavailable("No Track with this id");
+        return Boom.serverUnavailable("No info with this id");
       }
     },
   },

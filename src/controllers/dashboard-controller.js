@@ -1,43 +1,43 @@
-import { PlaylistSpec } from "../models/joi-schemas.js";
+import { venueSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 
 export const dashboardController = {
   index: {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
-      const playlists = await db.playlistStore.getUserPlaylists(loggedInUser._id);
+      const venues = await db.venueStore.getUservenues(loggedInUser._id);
       const viewData = {
-        title: "Playtime Dashboard",
+        title: "Venuely Dashboard",
         user: loggedInUser,
-        playlists: playlists,
+        venues: venues,
       };
       return h.view("dashboard-view", viewData);
     },
   },
 
-  addPlaylist: {
+  addvenue: {
     validate: {
-      payload: PlaylistSpec,
+      payload: venueSpec,
       options: { abortEarly: false },
       failAction: function (request, h, error) {
-        return h.view("dashboard-view", { title: "Add Playlist error", errors: error.details }).takeover().code(400);
+        return h.view("dashboard-view", { title: "Add venue error", errors: error.details }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
-      const newPlayList = {
+      const newvenue = {
         userid: loggedInUser._id,
         title: request.payload.title,
       };
-      await db.playlistStore.addPlaylist(newPlayList);
+      await db.venueStore.addvenue(newvenue);
       return h.redirect("/dashboard");
     },
   },
 
-  deletePlaylist: {
+  deletevenue: {
     handler: async function (request, h) {
-      const playlist = await db.playlistStore.getPlaylistById(request.params.id);
-      await db.playlistStore.deletePlaylistById(playlist._id);
+      const venue = await db.venueStore.getvenueById(request.params.id);
+      await db.venueStore.deletevenueById(venue._id);
       return h.redirect("/dashboard");
     },
   },
