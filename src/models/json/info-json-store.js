@@ -46,6 +46,7 @@ export const infoJsonStore = {
     info.title = updatedinfo.title;
     info.artist = updatedinfo.artist;
     info.duration = updatedinfo.duration;
+    info.genre = updatedinfo.genre;
     await db.write();
   },
 };

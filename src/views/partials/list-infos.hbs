@@ -4,6 +4,7 @@
       <th>Band</th>
       <th>Price</th>
       <th>Date</th>
+      <th>Genre</th>
       <th></th>
     </tr>
   </thead>
@@ -20,6 +21,9 @@
           {{duration}}
         </td>
         <td>
+          {{genre}}
+        </td>
+        <td>
           <a href="/venue/{{../venue._id}}/deleteinfo/{{_id}}" class="ui icon button">
             <i class="fas fa-trash"></i>
           </a>
@@ -28,3 +32,4 @@
     {{/each}}
   </tbody>
 </table>
+

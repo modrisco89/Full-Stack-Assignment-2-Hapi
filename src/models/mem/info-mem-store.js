@@ -47,5 +47,6 @@ export const infoMemStore = {
     info.title = updatedinfo.title;
     info.artist = updatedinfo.artist;
     info.duration = updatedinfo.duration;
+    info.genre = updatedinfo.genre;
   },
 };

@@ -27,11 +27,12 @@ export const infoController = {
       const info = await db.infoStore.getinfoById(request.params.infoid);
       let eventDate = new Date();
       eventDate = request.payload.duration
-      const eventDateCut = eventDate.toISOString().slice(0, 10)
+      const eventDateCut = eventDate.toISOString().slice(0, 10);
       const newinfo = {
         title: request.payload.title,
         artist: request.payload.artist,
         duration: eventDateCut,
+        genre: request.payload.genre
       };
       await db.infoStore.updateinfo(info, newinfo);
       return h.redirect(`/venue/${request.params.id}`);

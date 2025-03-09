@@ -44,6 +44,7 @@ export const infoMongoStore = {
     infoDoc.title = updatedinfo.title;
     infoDoc.artist = updatedinfo.artist;
     infoDoc.duration = updatedinfo.duration;
+    infoDoc.genre = updatedinfo.genre;
     await infoDoc.save();
   },
 };
