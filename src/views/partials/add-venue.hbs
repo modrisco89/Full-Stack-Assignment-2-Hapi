@@ -1,4 +1,5 @@
 
+
   <form action="/dashboard/addvenue" method="POST">
   
 <div class="field is-horizontal">
@@ -19,7 +20,14 @@
       <label class="label">Longtitude</label>
       <input class="input" type="text" placeholder="Enter longitude" name="longitude">
     </div>
-    </div>
-    </div>
+    <div class="field">
+      <label class="label">Capacity</label>
+    <div class="select">
+        <select name="capacity">
+          <option value ="Small">Small</option>
+          <option value ="Medium">Medium</option>
+          <option value ="Large">Large</option>
+        </select>
+      </div>
     <button class="button is-primary">Add venue</button>
   </form>

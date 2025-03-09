@@ -30,8 +30,8 @@ export const dashboardController = {
         title: request.payload.title,
         description: request.payload.description,
         latitude: Number(request.payload.latitude),
-        longitude: Number(request.payload.longitude)
-        
+        longitude: Number(request.payload.longitude),
+        capacity: request.payload.capacity,
       };
       await db.venueStore.addvenue(newvenue);
       return h.redirect("/dashboard");

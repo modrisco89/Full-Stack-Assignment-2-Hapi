@@ -1,4 +1,5 @@
-<div class="columns is-centered is-multiline">
+  <div class="columns is-centered is-multiline">
+
 {{#each venues}}
 <div class="column is-one-quarter">
 <div class="card has-background-info has-text-white">
@@ -13,9 +14,9 @@
         <p class="title is-4 has-text-white">{{title}}</p>
       </div>
     </div>
-
     <div class="content">
       <p>{{description}}</p>
+      <p>Capacity: {{capacity}}</p>
       <p>Lat: {{latitude}}</p>
       <p>Long: {{longitude}}</p>
           <a href="/venue/{{_id}}" class="button">
@@ -30,7 +31,6 @@
   </div>
 </div>
 </div>
-
 {{/each}}
 </div>
 

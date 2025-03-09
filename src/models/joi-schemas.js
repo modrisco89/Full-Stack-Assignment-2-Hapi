@@ -24,4 +24,5 @@ export const venueSpec = {
   description: Joi.string().required().max(32),
   latitude: Joi.number().required(),
   longitude: Joi.number().required(),
+  capacity: Joi.string().required()
 };
