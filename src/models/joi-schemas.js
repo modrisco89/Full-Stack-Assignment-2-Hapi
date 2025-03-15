@@ -19,10 +19,13 @@ export const infoSpec = {
   genre: Joi.string().required(),
 };
 
-export const venueSpec = {
+export const venueSpec = Joi.object({
   title: Joi.string().required(),
   description: Joi.string().required().max(32),
   latitude: Joi.number().required(),
   longitude: Joi.number().required(),
-  capacity: Joi.string().required()
-};
+  capacity: Joi.string().valid("Small", "Medium", "Large").required(),
+  imagefile: Joi.any().optional(), 
+});
+
+
