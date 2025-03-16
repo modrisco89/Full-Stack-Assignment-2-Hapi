@@ -1,6 +1,8 @@
 import Mongoose from "mongoose";
 import { Venue } from "./venue.js";
 import { infoMongoStore } from "./info-mongo-store.js";
+import { Info } from "./info.js";
+
 
 export const venueMongoStore = {
   async getAllvenues() {
@@ -33,6 +35,16 @@ export const venueMongoStore = {
   async deletevenueById(id) {
     try {
       await Venue.deleteOne({ _id: id });
+      await Info.deleteMany({venueid: id});
+    } catch (error) {
+      console.log("bad id");
+    }
+  },
+
+  async deleteAllVenuesByUserId(id) {
+    try {
+      await Venue.deleteMany({ userid: id });
+      await Info.deleteMany({userid: id});
     } catch (error) {
       console.log("bad id");
     }

@@ -34,6 +34,12 @@ export const userMongoStore = {
     await userDoc.save();
   },
 
+  async updatePassword(user, password) {
+    const userDoc = await User.findOne({ _id: user._id });
+    userDoc.password = password.password;
+    await userDoc.save();
+  },
+
   async getUserByEmail(email) {
     const user = await User.findOne({ email: email }).lean();
     return user;

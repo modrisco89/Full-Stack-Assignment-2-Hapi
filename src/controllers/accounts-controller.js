@@ -1,4 +1,4 @@
-import { UserSpec, UserCredentialsSpec } from "../models/joi-schemas.js";
+import { UserSpec, UserCredentialsSpec, passwordSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 
 export const accountsController = {
@@ -103,12 +103,28 @@ export const accountsController = {
   deleteUser: {
     handler: async function (request, h) {
       await db.userStore.deleteUserById(request.params.userid);
-    // deleted users venus and events  await db.userStore.
+      await db.venueStore.deleteAllVenuesByUserId(request.params.userid);
       return h.redirect("/settings");
     },
   },
 
-
+  updateUser: {
+    validate: {
+      payload: passwordSpec,
+      options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        return h.view("settings", { title: "Edit info error", errors: error.details }).takeover().code(400);
+      },
+    },
+    handler: async function (request, h) {
+      const user = await db.userStore.getUserById(request.params.userid);
+      const updatedPassword = {
+        password: request.payload.password
+      };
+      await db.userStore.updatePassword(user, updatedPassword);
+      return h.redirect("/settings");
+    },
+  },
   
 
   logout: {

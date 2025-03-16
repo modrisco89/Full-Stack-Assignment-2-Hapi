@@ -11,6 +11,10 @@ const infoSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "venue",
   },
+  userid: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 export const Info = Mongoose.model("info", infoSchema);

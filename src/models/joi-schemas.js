@@ -12,6 +12,10 @@ export const UserSpec = {
   password: Joi.string().min(8).required(),
 };
 
+export const passwordSpec = {
+  password: Joi.string().min(8).required(),
+};
+
 export const infoSpec = {
   title: Joi.string().required(),
   artist: Joi.number().required(),

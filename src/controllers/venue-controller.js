@@ -23,12 +23,13 @@ export const venueController = {
       },
     },
     handler: async function (request, h) {
-      
+      const loggedInUser = request.auth.credentials;
       const venue = await db.venueStore.getvenueById(request.params.id);
       let eventDate = new Date();
       eventDate = request.payload.duration;
       const eventDateCut = eventDate.toISOString().slice(0, 10);
       const newinfo = {
+        userid: loggedInUser._id,
         title: request.payload.title,
         artist: request.payload.artist,
         duration: eventDateCut,
