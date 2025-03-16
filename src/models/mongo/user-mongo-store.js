@@ -18,8 +18,20 @@ export const userMongoStore = {
   async addUser(user) {
     const newUser = new User(user);
     const userObj = await newUser.save();
+    userObj.admin = false;
+    await userObj.save();
     const u = await this.getUserById(userObj._id);
     return u;
+  },
+
+
+  async updateUser(user, updatedUser) {
+    const userDoc = await User.findOne({ _id: user._id });
+    userDoc.email = updatedUser.email;
+    userDoc.firstName = updatedUser.firstName;
+    userDoc.lastName = updatedUser.lastName;
+    userDoc.password= updatedUser.password;
+    await userDoc.save();
   },
 
   async getUserByEmail(email) {

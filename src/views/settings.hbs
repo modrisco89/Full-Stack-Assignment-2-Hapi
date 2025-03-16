@@ -1,28 +1,27 @@
-{{> welcome-menu active="signup"}}
+{{> menu active="settings"}}
 
 <section class="section">
-  <h1 class="title">Sign up</h1>
-  <form action="/register" method="POST">
+  <h1 class="title">Settings</h1>
+  <form action="/update" method="POST">
     <label class="label">Name</label>
     <div class="field is-horizontal">
       <div class="field-body">
         <div class="field">
-          <input class="input" type="text" placeholder="Enter first name" name="firstName">
+          <input class="input" type="text" placeholder="{{userName}}" name="firstName">
         </div>
         <div class="field">
-          <input class="input" type="text" placeholder="Enter last name" name="lastName">
+          <input class="input" type="text" placeholder="{{userSurname}}" name="lastName">
         </div>
       </div>
     </div>
     <div class="field">
-      <label class="label">Email</label> <input class="input" type="text" placeholder="Enter email" name="email">
+      <label class="label">Email</label> <input class="input" type="text" placeholder="{{userEmail}}" name="email">
     </div>
     <div class="field">
       <label class="label">Password</label> <input class="input" type="password" placeholder="Enter Password" name="password">
     </div>
-
     <div class="field is-grouped">
-      <button class="button is-primary">Submit</button>
+      <button class="button is-primary">Update</button>
     </div>
   </form>
 </section>

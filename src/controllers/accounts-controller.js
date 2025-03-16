@@ -54,6 +54,49 @@ export const accountsController = {
       return h.redirect("/dashboard");
     },
   },
+  
+
+  settingsView: {
+    handler: async function (request, h){
+    const loggedInUser = request.auth.credentials;
+    const user = await db.userStore.getUserById(loggedInUser._id);
+
+    const viewData = {
+      userEmail: user.email,
+      userName: user.firstName,
+      userSurname: user.lastName,
+    };
+    
+    return h.view("settings", viewData);
+    }
+  },
+ 
+
+
+  update: {
+    
+    validate: {
+      payload: UserSpec,
+      options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        return h.view("settings", { title: "Update error", errors: error.details }).takeover().code(400);
+      },
+    },    
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
+      const user = await db.userStore.getUserById(loggedInUser._id);
+      const updatedUser= {
+        email: request.payload.email,
+        firstName: request.payload.firstName,
+        lastName: request.payload.lastName,
+        password: request.payload.password
+      };
+      await db.userStore.updateUser(user, updatedUser);
+     return h.redirect("/dashboard");
+    }
+  },
+
+
   logout: {
     handler: function (request, h) {
       request.cookieAuth.clear();

@@ -40,7 +40,7 @@ export const infoMongoStore = {
   },
 
   async updateinfo(info, updatedinfo) {
-    const infoDoc = await info.findOne({ _id: info._id });
+    const infoDoc = await Info.findOne({ _id: info._id });
     infoDoc.title = updatedinfo.title;
     infoDoc.artist = updatedinfo.artist;
     infoDoc.duration = updatedinfo.duration;
