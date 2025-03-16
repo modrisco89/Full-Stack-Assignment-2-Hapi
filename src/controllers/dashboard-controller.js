@@ -20,13 +20,24 @@ export const dashboardController = {
 
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
+      const file = request.payload.imagefile;
 
-      const url = await imageStore.uploadImage(request.payload.imagefile);
+      let url = "";
+      let publicId = "";
+
+      if (Object.keys(file).length > 0) {
+            
+      
+      url = await imageStore.uploadImage(file);
       const reversedUrl = url.split("/").reverse().join("/");
       const publicIdWithExtension = reversedUrl.split("/")[0];
-      const publicId = publicIdWithExtension.split(".")[0];
-      
-
+      // eslint-disable-next-line prefer-destructuring
+      publicId = publicIdWithExtension.split(".")[0];
+    
+    }else {
+      url = "https://res.cloudinary.com/dh7gl6628/image/upload/v1742147015/placeholder_tiaq4k.jpg";
+      publicId = "placeholder_tiaq4k"; 
+    }
       const newvenue = {
         userid: loggedInUser._id,
         title: request.payload.title,
