@@ -60,11 +60,14 @@ export const accountsController = {
     handler: async function (request, h){
     const loggedInUser = request.auth.credentials;
     const user = await db.userStore.getUserById(loggedInUser._id);
-
+    const users = await db.userStore.getAllUsers();
+    
     const viewData = {
+      users: users,
       userEmail: user.email,
       userName: user.firstName,
       userSurname: user.lastName,
+      userAdmin: user.admin,
     };
     
     return h.view("settings", viewData);
@@ -96,6 +99,17 @@ export const accountsController = {
     }
   },
 
+
+  deleteUser: {
+    handler: async function (request, h) {
+      await db.userStore.deleteUserById(request.params.userid);
+    // deleted users venus and events  await db.userStore.
+      return h.redirect("/settings");
+    },
+  },
+
+
+  
 
   logout: {
     handler: function (request, h) {

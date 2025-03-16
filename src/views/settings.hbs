@@ -1,7 +1,7 @@
 {{> menu active="settings"}}
 
 <section class="section">
-  <h1 class="title">Settings</h1>
+  <h1 class="title">Account Settings</h1>
   <form action="/update" method="POST">
     <label class="label">Name</label>
     <div class="field is-horizontal">
@@ -25,3 +25,58 @@
     </div>
   </form>
 </section>
+
+{{#if userAdmin}}
+<section class="section">
+  <h1 class="title">Admin Settings</h1>
+  
+  <table class="table is-fullwidth">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Password</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each users}}
+    {{#unless admin}}
+      <tr>
+        <td>
+          {{firstName}}
+        </td>
+        <td>
+          {{lastName}}
+        </td>
+        <td>
+          {{email}}
+        </td>
+        <form action="/updateuser/{{_id}}" method="POST">
+        <td>
+        <div class="field">
+        <input class="input is-small" type="password" placeholder="Enter Password" name="password">
+        </div>
+        </td>
+        <td>
+          <div class="field is-grouped">
+      <button class="button is-small is-primary">Update</button>
+    </div>
+        </td>
+        </form>
+        <td>
+          <a href="/deleteuser/{{_id}}" class="ui is-medium icon button">
+            <i class="fas fa-trash "></i>
+          </a>
+        </td>
+      </tr>
+      {{/unless}}
+
+    {{/each}}
+  </tbody>
+</table>
+
+</section>
+{{/if}}

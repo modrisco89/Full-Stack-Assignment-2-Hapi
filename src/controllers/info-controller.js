@@ -7,7 +7,7 @@ export const infoController = {
       const venue = await db.venueStore.getvenueById(request.params.id);
       const info = await db.infoStore.getinfoById(request.params.infoid);
       const viewData = {
-        title: "Edit Song",
+        title: "Edit Concert",
         venue: venue,
         info: info,
       };

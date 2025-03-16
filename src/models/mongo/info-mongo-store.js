@@ -13,7 +13,11 @@ export const infoMongoStore = {
     const infoObj = await newinfo.save();
     return this.getinfoById(infoObj._id);
   },
-
+  
+  async getinfosByUserId(id) {
+    const infos = await Info.find({ venueid: id }).lean();
+    return infos;
+  },
   async getinfosByvenueId(id) {
     const infos = await Info.find({ venueid: id }).lean();
     return infos;
