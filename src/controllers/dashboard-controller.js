@@ -1,15 +1,21 @@
+import dayjs from "dayjs";
+import { createRequire } from "module";
 import { venueSpec } from "../models/joi-schemas.js";
 import { imageStore } from "../models/image-store.js";
 import { db } from "../models/db.js";
+
+const require = createRequire(import.meta.url);
 
 export const dashboardController = {
   index: {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
+      const adminInfo = await db.adminStore.getAlladmins();
       const venues = await db.venueStore.getUservenues(loggedInUser._id);
       const viewData = {
         title: "Venuely Dashboard",
         user: loggedInUser,
+        adminInfo: adminInfo,
         venues: venues,
       };
       return h.view("dashboard-view", viewData);
@@ -21,6 +27,13 @@ export const dashboardController = {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
       const file = request.payload.imagefile;
+      const utc = require("dayjs/plugin/utc");
+      const timezone = require("dayjs/plugin/timezone");
+      const customParseFormat = require("dayjs/plugin/customParseFormat");
+      dayjs.extend(utc);
+      dayjs.extend(timezone);
+      dayjs.extend(customParseFormat);
+      const dateTime = dayjs();
 
       let url = "";
       let publicId = "";
@@ -48,6 +61,14 @@ export const dashboardController = {
         img: url,
         imgId: publicId,
       }
+      const admin ={
+        firstName: loggedInUser.firstName,
+        email: loggedInUser.email,
+        lastName: loggedInUser.lastName,
+        action: "Venue Added",
+        date:  dateTime.tz("Europe/London").format("DD-MM-YYYY HH:mm:ss"),
+      }
+      await db.adminStore.addadmin(admin);
       await db.venueStore.addvenue(newvenue);
       return h.redirect("/dashboard");
     },
@@ -72,6 +93,22 @@ export const dashboardController = {
   deletevenue: {
     handler: async function (request, h) {
       const venue = await db.venueStore.getvenueById(request.params.id);
+      const loggedInUser = request.auth.credentials;
+      const utc = require("dayjs/plugin/utc");
+      const timezone = require("dayjs/plugin/timezone");
+      const customParseFormat = require("dayjs/plugin/customParseFormat");
+      dayjs.extend(utc);
+      dayjs.extend(timezone);
+      dayjs.extend(customParseFormat);
+      const dateTime = dayjs();
+      const admin ={
+        firstName: loggedInUser.firstName,
+        email: loggedInUser.email,
+        lastName: loggedInUser.lastName,
+        action: "Venue Deleted",
+        date:  dateTime.tz("Europe/London").format("DD-MM-YYYY HH:mm:ss"),
+      }
+      await db.adminStore.addadmin(admin);
       await db.venueStore.deletevenueById(venue._id);
       await imageStore.deleteImage(venue.imgId);
       return h.redirect("/dashboard");

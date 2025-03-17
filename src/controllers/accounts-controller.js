@@ -1,5 +1,9 @@
+import dayjs from "dayjs";
+import { createRequire } from "module";
 import { UserSpec, UserCredentialsSpec, passwordSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
+
+const require = createRequire(import.meta.url);
 
 export const accountsController = {
   index: {
@@ -47,10 +51,29 @@ export const accountsController = {
     handler: async function (request, h) {
       const { email, password } = request.payload;
       const user = await db.userStore.getUserByEmail(email);
+
+      const utc = require("dayjs/plugin/utc");
+      const timezone = require("dayjs/plugin/timezone");
+      const customParseFormat = require("dayjs/plugin/customParseFormat");
+      dayjs.extend(utc);
+      dayjs.extend(timezone);
+      dayjs.extend(customParseFormat);
+      const dateTime = dayjs();
+
       if (!user || user.password !== password) {
         return h.redirect("/");
       }
       request.cookieAuth.set({ id: user._id });
+      const loggedInUser = user;
+      const admin ={
+        firstName: loggedInUser.firstName,
+        email: loggedInUser.email,
+        lastName: loggedInUser.lastName,
+        action: "Login",
+        date:  dateTime.tz("Europe/London").format("DD-MM-YYYY HH:mm:ss"),
+      }
+
+      await db.adminStore.addadmin(admin);
       return h.redirect("/dashboard");
     },
   },
@@ -87,6 +110,13 @@ export const accountsController = {
     },    
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
+      const utc = require("dayjs/plugin/utc");
+      const timezone = require("dayjs/plugin/timezone");
+      const customParseFormat = require("dayjs/plugin/customParseFormat");
+      dayjs.extend(utc);
+      dayjs.extend(timezone);
+      dayjs.extend(customParseFormat);
+      const dateTime = dayjs();
       const user = await db.userStore.getUserById(loggedInUser._id);
       const updatedUser= {
         email: request.payload.email,
@@ -94,7 +124,15 @@ export const accountsController = {
         lastName: request.payload.lastName,
         password: request.payload.password
       };
+      const admin ={
+        firstName: loggedInUser.firstName,
+        email: loggedInUser.email,
+        lastName: loggedInUser.lastName,
+        action: "User Update",
+        date:  dateTime.tz("Europe/London").format("DD-MM-YYYY HH:mm:ss"),
+      }
       await db.userStore.updateUser(user, updatedUser);
+      await db.adminStore.addadmin(admin);
      return h.redirect("/dashboard");
     }
   },
@@ -129,6 +167,23 @@ export const accountsController = {
 
   logout: {
     handler: function (request, h) {
+      
+      const loggedInUser = request.auth.credentials;
+      const utc = require("dayjs/plugin/utc");
+      const timezone = require("dayjs/plugin/timezone");
+      const customParseFormat = require("dayjs/plugin/customParseFormat");
+      dayjs.extend(utc);
+      dayjs.extend(timezone);
+      dayjs.extend(customParseFormat);
+      const dateTime = dayjs();
+      const admin ={
+        firstName: loggedInUser.firstName,
+        email: loggedInUser.email,
+        lastName: loggedInUser.lastName,
+        action: "Logout",
+        date:  dateTime.tz("Europe/London").format("DD-MM-YYYY HH:mm:ss"),
+      }
+      db.adminStore.addadmin(admin);
       request.cookieAuth.clear();
       return h.redirect("/");
     },

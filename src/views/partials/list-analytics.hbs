@@ -1,0 +1,34 @@
+<table class="table is-fullwidth">
+  <h1 class="title">Event Log</h1>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Name</th>
+      <th>Last Name</th>
+      <th>Event</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each adminInfo}}
+      <tr>
+        <td>
+          {{email}}
+        </td>
+        <td>
+          {{firstName}}
+        </td>
+        <td>
+          {{lastName}}
+        </td>
+        <td>
+          {{action}}
+        </td>
+        <td>
+          {{date}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+

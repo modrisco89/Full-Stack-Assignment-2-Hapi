@@ -7,6 +7,7 @@ import { infoJsonStore } from "./json/info-json-store.js";
 import { userMongoStore } from "./mongo/user-mongo-store.js";
 import { venueMongoStore } from "./mongo/venue-mongo-store.js";
 import { infoMongoStore } from "./mongo/info-mongo-store.js";
+import { adminMongoStore } from "./mongo/admin-mongo-store.js";
 import { connectMongo } from "./mongo/connect.js";
 
 export const db = {
@@ -25,6 +26,7 @@ export const db = {
         this.userStore = userMongoStore;
         this.venueStore = venueMongoStore;
         this.infoStore = infoMongoStore;
+        this.adminStore = adminMongoStore;
         connectMongo();
         break;
       default :
