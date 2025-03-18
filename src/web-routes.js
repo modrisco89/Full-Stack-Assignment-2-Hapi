@@ -29,4 +29,6 @@ export const webRoutes = [
 
   { method: "GET", path: "/info/{id}/editinfo/{infoid}", config: infoController.index },
   { method: "POST", path: "/info/{id}/updateinfo/{infoid}", config: infoController.update },
+
+  { method: "GET", path: "/dashboard/clearlog", config: dashboardController.clearLog },
 ];

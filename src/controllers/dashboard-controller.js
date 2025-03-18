@@ -114,4 +114,11 @@ export const dashboardController = {
       return h.redirect("/dashboard");
     },
   },
+
+  clearLog: {
+    handler: async function (request, h) {
+      await db.adminStore.deleteAlladmins();
+      return h.redirect("/dashboard");
+    },
+  },
 };
