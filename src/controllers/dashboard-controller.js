@@ -48,8 +48,8 @@ export const dashboardController = {
       publicId = publicIdWithExtension.split(".")[0];
     
     }else {
-      url = "https://res.cloudinary.com/dh7gl6628/image/upload/v1742147015/placeholder_tiaq4k.jpg";
-      publicId = "placeholder_tiaq4k"; 
+      url = "https://res.cloudinary.com/dh7gl6628/image/upload/v1742276107/placeholder_zbjk5v.jpg";
+      publicId = "placeholder_zbjk5v"; 
     }
       const newvenue = {
         userid: loggedInUser._id,
@@ -110,7 +110,9 @@ export const dashboardController = {
       }
       await db.adminStore.addadmin(admin);
       await db.venueStore.deletevenueById(venue._id);
+      if (venue.imgId !== "placeholder_zbjk5v"){
       await imageStore.deleteImage(venue.imgId);
+      }
       return h.redirect("/dashboard");
     },
   },
