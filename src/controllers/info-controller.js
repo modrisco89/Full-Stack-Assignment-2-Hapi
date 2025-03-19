@@ -26,12 +26,12 @@ export const infoController = {
     handler: async function (request, h) {
       const info = await db.infoStore.getinfoById(request.params.infoid);
       let eventDate = new Date();
-      eventDate = request.payload.duration
+      eventDate = request.payload.date
       const eventDateCut = eventDate.toISOString().slice(0, 10);
       const newinfo = {
-        title: request.payload.title,
         artist: request.payload.artist,
-        duration: eventDateCut,
+        price: request.payload.price,
+        date: eventDateCut,
         genre: request.payload.genre
       };
       await db.infoStore.updateinfo(info, newinfo);

@@ -17,9 +17,9 @@ export const passwordSpec = {
 };
 
 export const infoSpec = {
-  title: Joi.string().required(),
-  artist: Joi.number().required(),
-  duration: Joi.date().allow(""),
+  artist: Joi.string().required(),
+  price: Joi.number().required(),
+  date: Joi.date().allow(""),
   genre: Joi.string().required(),
 };
 

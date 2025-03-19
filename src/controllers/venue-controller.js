@@ -39,13 +39,13 @@ export const venueController = {
       dayjs.extend(customParseFormat);
       const dateTime = dayjs();
 
-      eventDate = request.payload.duration;
+      eventDate = request.payload.date;
       const eventDateCut = eventDate.toISOString().slice(0, 10);
       const newinfo = {
         userid: loggedInUser._id,
-        title: request.payload.title,
         artist: request.payload.artist,
-        duration: eventDateCut,
+        price: request.payload.price,
+        date: eventDateCut,
         genre: request.payload.genre
       };
       const admin ={

@@ -3,9 +3,9 @@ import Mongoose from "mongoose";
 const { Schema } = Mongoose;
 
 const infoSchema = new Schema({
-  title: String,
-  artist: Number,
-  duration: String,
+  artist: String,
+  price: Number,
+  date: String,
   genre: String,
   venueid: {
     type: Schema.Types.ObjectId,

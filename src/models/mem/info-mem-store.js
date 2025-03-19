@@ -44,9 +44,9 @@ export const infoMemStore = {
   },
 
   async updateinfo(info, updatedinfo) {
-    info.title = updatedinfo.title;
     info.artist = updatedinfo.artist;
-    info.duration = updatedinfo.duration;
+    info.price = updatedinfo.price;
+    info.date = updatedinfo.date;
     info.genre = updatedinfo.genre;
   },
 };
