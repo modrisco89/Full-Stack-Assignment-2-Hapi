@@ -22,21 +22,21 @@ export const adminJsonStore = {
     return u;
   },
 
-  async getadminByEmail(email) {
+  async getAdminByEmail(email) {
     await db.read();
     let u = db.data.admins.find((admin) => admin.email === email);
     if (u === undefined) u = null;
     return u;
   },
 
-  async deleteadminById(id) {
+  async deleteadmin(id) {
     await db.read();
     const index = db.data.admins.findIndex((admin) => admin._id === id);
     if (index !== -1) db.data.admins.splice(index, 1);
     await db.write();
   },
 
-  async deleteAll() {
+  async deleteAlladmins() {
     db.data.admins = [];
     await db.write();
   },

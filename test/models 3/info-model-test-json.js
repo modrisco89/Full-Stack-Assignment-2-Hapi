@@ -3,11 +3,11 @@ import { db } from "../../src/models/db.js";
 import { testvenues, testinfos, testVenue2, testVenue, info, testUsers } from "../fixtures.js";
 import { assertSubset } from "../test-utils.js";
 
-suite("info Model tests", () => {
+suite("info Model tests (json)", () => {
   let testVenue2List = null;
 
   setup(async () => {
-    await db.init("mongo");
+    await db.init("json");
     await db.venueStore.deleteAllvenues();
     await db.infoStore.deleteAllinfos();
     testVenue2List = await db.venueStore.addvenue(testVenue2);

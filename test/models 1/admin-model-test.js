@@ -3,7 +3,7 @@ import { db } from "../../src/models/db.js";
 import { admin, testAdmins } from "../fixtures.js";
 import { assertSubset } from "../test-utils.js";
 
-suite("admin Model tests", () => {
+suite("admin Model tests (mongo)", () => {
   setup(async () => {
     db.init("mongo");
     await db.adminStore.deleteAlladmins();
@@ -28,7 +28,7 @@ suite("admin Model tests", () => {
 
   test("get a admin - success", async () => {
     const admin2 = await db.adminStore.addadmin(admin);
-    const returnedadmin1 = await db.adminStore.getAdminById(admin2._id);
+    const returnedadmin1 = await db.adminStore.getadminById(admin2._id);
     assert.deepEqual(admin2, returnedadmin1);
     const returnedadmin2 = await db.adminStore.getAdminByEmail(admin2.email);
     assert.deepEqual(admin2, returnedadmin2);
