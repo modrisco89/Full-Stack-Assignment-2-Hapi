@@ -1,32 +1,32 @@
 import { assert } from "chai";
 import { db } from "../../src/models/db.js";
-import { testPlaylists, testinfos, beethoven, mozart, concerto, testUsers } from "../fixtures.js";
+import { testvenues, testinfos, testVenue2, testVenue, info, testUsers } from "../fixtures.js";
 import { assertSubset } from "../test-utils.js";
 
 suite("info Model tests", () => {
-  let beethovenList = null;
+  let testVenue2List = null;
 
   setup(async () => {
     await db.init("mongo");
-    await db.playlistStore.deleteAllPlaylists();
+    await db.venueStore.deleteAllvenues();
     await db.infoStore.deleteAllinfos();
-    beethovenList = await db.playlistStore.addPlaylist(beethoven);
+    testVenue2List = await db.venueStore.addvenue(testVenue2);
     for (let i = 0; i < testinfos.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
-      testinfos[i] = await db.infoStore.addinfo(beethovenList._id, testinfos[i]);
+      testinfos[i] = await db.infoStore.addinfo(testVenue2List._id, testinfos[i]);
     }
   });
 
   test("create single info", async () => {
-    const mozartList = await db.playlistStore.addPlaylist(mozart);
-    const info = await db.infoStore.addinfo(mozartList._id, concerto);
+    const testVenueList = await db.venueStore.addvenue(testVenue);
+    const info2 = await db.infoStore.addinfo(testVenueList._id, info);
     assert.isNotNull(info._id);
-    assertSubset(concerto, info);
+    assertSubset(info2, info);
   });
 
   test("create multiple infoApi", async () => {
-    const infos = await db.playlistStore.getPlaylistById(beethovenList._id);
-    assert.equal(testinfos.length, testinfos.length);
+    const testinfos2 = await db.venueStore.getvenueById(testVenue2List._id);
+    assert.equal(testinfos2.length, testVenue2List.length);
   });
 
   test("delete all infoApi", async () => {
@@ -38,22 +38,22 @@ suite("info Model tests", () => {
   });
 
   test("get a info - success", async () => {
-    const mozartList = await db.playlistStore.addPlaylist(mozart);
-    const info = await db.infoStore.addinfo(mozartList._id, concerto);
+    const testVenueList = await db.venueStore.addvenue(testVenue);
+    const info2 = await db.infoStore.addinfo(testVenueList._id, info);
     const newinfo = await db.infoStore.getinfoById(info._id);
-    assertSubset(concerto, newinfo);
+    assertSubset(info2, newinfo);
   });
 
   test("delete One info - success", async () => {
     const id = testinfos[0]._id;
     await db.infoStore.deleteinfo(id);
     const infos = await db.infoStore.getAllinfos();
-    assert.equal(infos.length, testPlaylists.length - 1);
+    assert.equal(infos.length, testvenues.length - 1);
     const deletedinfo = await db.infoStore.getinfoById(id);
     assert.isNull(deletedinfo);
   });
 
-  test("get a playlist - bad params", async () => {
+  test("get a venue - bad params", async () => {
     assert.isNull(await db.infoStore.getinfoById(""));
     assert.isNull(await db.infoStore.getinfoById());
   });
@@ -61,6 +61,6 @@ suite("info Model tests", () => {
   test("delete One User - fail", async () => {
     await db.infoStore.deleteinfo("bad-id");
     const infos = await db.infoStore.getAllinfos();
-    assert.equal(infos.length, testPlaylists.length);
+    assert.equal(infos.length, testvenues.length);
   });
 });

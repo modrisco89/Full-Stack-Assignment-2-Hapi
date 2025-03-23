@@ -40,12 +40,5 @@ export const infoMongoStore = {
     await Info.deleteMany({});
   },
 
-  async updateinfo(info, updatedinfo) {
-    const infoDoc = await Info.findOne({ _id: info._id });
-    infoDoc.artist = updatedinfo.artist;
-    infoDoc.price = updatedinfo.price;
-    infoDoc.date = updatedinfo.date;
-    infoDoc.genre = updatedinfo.genre;
-    await infoDoc.save();
-  },
+
 };

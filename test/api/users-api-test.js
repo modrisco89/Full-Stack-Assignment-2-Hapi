@@ -12,7 +12,7 @@ suite("User API tests", () => {
       testUsers[0] = await venuelyService.createUser(testUsers[i]);
     }
   });
-  teardown(async () => {});
+  teardown(async () => {}); 
 
   test("create a user", async () => {
     const newUser = await venuelyService.createUser(maggie);

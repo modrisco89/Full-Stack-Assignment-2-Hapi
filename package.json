@@ -8,7 +8,7 @@
     "start": "node src/server.js",
     "dev": "./node_modules/.bin/nodemon src/server.js",
     "lint": "./node_modules/.bin/eslint . --ext .js",
-    "test": "./node_modules/mocha/bin/_mocha --ui tdd test/**/*.js -exit"
+    "test": "mocha --ui tdd test/**/*.js -exit"
   },
   "repository": {
     "type": "git",
@@ -34,13 +34,15 @@
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.7",
     "handlebars": "^4.7.8",
+    "hapi-auth-jwt2": "^11.0.0",
     "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
     "lowdb": "^7.0.1",
     "mongoose": "^8.10.0",
     "uuid": "^11.0.5"
   },
   "devDependencies": {
-    "axios": "^1.7.9",
+    "axios": "^1.8.4",
     "chai": "^5.1.2",
     "eslint": "^8.57.1",
     "eslint-config-airbnb-base": "^15.0.0",

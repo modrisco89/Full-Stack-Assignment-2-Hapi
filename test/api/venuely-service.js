@@ -73,4 +73,30 @@ export const venuelyService = {
     const res = await axios.delete(`${this.venuelyUrl}/api/infos/${id}`);
     return res.data;
   },
+
+  async getadmins() {
+    const res = await axios.get(`${this.venuelyUrl}/api/admins`);
+    return res.data;
+  },
+
+  async createadmin(admin) {
+    const res = await axios.post(`${this.venuelyUrl}/api/admins`, admin);
+    return res.data;
+  },
+
+  async deleteadmin(id) {
+    const res = await axios.delete(`${this.venuelyUrl}/api/admins/${id}`);
+    return res.data;
+  },
+
+  async getadmin(id) {
+    const res = await axios.get(`${this.venuelyUrl}/api/admins/${id}`);
+    return res.data;
+  },
+
+  async deleteAllAdmins() {
+    const res = await axios.delete(`${this.venuelyUrl}/api/admins`);
+    return res.data;
+  },
+
 };

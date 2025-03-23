@@ -42,11 +42,5 @@ export const infoJsonStore = {
     await db.write();
   },
 
-  async updateinfo(info, updatedinfo) {
-    info.artist = updatedinfo.artist;
-    info.price = updatedinfo.price;
-    info.date = updatedinfo.date;
-    info.genre = updatedinfo.genre;
-    await db.write();
-  },
+
 };

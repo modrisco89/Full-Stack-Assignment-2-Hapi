@@ -3,7 +3,7 @@ import { assert } from "chai";
 import { venuelyService } from "./venuely-service.js";
 import { assertSubset } from "../test-utils.js";
 
-import { maggie, mozart, testvenues } from "../fixtures.js";
+import { maggie, testVenue, testvenues } from "../fixtures.js";
 
 EventEmitter.setMaxListeners(25);
 
@@ -14,19 +14,19 @@ suite("venue API tests", () => {
     await venuelyService.deleteAllvenues();
     await venuelyService.deleteAllUsers();
     user = await venuelyService.createUser(maggie);
-    mozart.userid = user._id;
+    testVenue.userid = user._id;
   });
 
   teardown(async () => {});
 
   test("create venue", async () => {
-    const returnedvenue = await venuelyService.createvenue(mozart);
+    const returnedvenue = await venuelyService.createvenue(testVenue);
     assert.isNotNull(returnedvenue);
-    assertSubset(mozart, returnedvenue);
+    assertSubset(testVenue, returnedvenue);
   });
 
   test("delete a venue", async () => {
-    const venue = await venuelyService.createvenue(mozart);
+    const venue = await venuelyService.createvenue(testVenue);
     const response = await venuelyService.deletevenue(venue._id);
     assert.equal(response.status, 204);
     try {

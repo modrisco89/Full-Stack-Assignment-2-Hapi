@@ -7,6 +7,21 @@ export const adminMongoStore = {
     return admins;
   },
 
+
+  async getAdminById(id) {
+    if (Mongoose.isValidObjectId(id)) {
+      const admin = await Admin.findOne({ _id: id }).lean();
+      return admin;
+    }
+    return null;
+  },
+
+
+    async getAdminByEmail(email) {
+      const admin = await Admin.findOne({ email: email }).lean();
+      return admin;
+    },
+
   async addadmin(admin) {
     const newadmin = new Admin(admin);
     const adminObj = await newadmin.save();

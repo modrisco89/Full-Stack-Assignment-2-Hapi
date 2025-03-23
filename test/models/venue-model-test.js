@@ -1,6 +1,6 @@
 import { assert } from "chai";
 import { db } from "../../src/models/db.js";
-import { testvenues, mozart } from "../fixtures.js";
+import { testvenues, testVenue } from "../fixtures.js";
 import { assertSubset } from "../test-utils.js";
 
 suite("venue Model tests", () => {
@@ -14,8 +14,8 @@ suite("venue Model tests", () => {
   });
 
   test("create a venue", async () => {
-    const venue = await db.venueStore.addvenue(mozart);
-    assertSubset(mozart, venue);
+    const venue = await db.venueStore.addvenue(testVenue);
+    assertSubset(testVenue, venue);
     assert.isDefined(venue._id);
   });
 
@@ -28,9 +28,9 @@ suite("venue Model tests", () => {
   });
 
   test("get a venue - success", async () => {
-    const venue = await db.venueStore.addvenue(mozart);
+    const venue = await db.venueStore.addvenue(testVenue);
     const returnedvenue = await db.venueStore.getvenueById(venue._id);
-    assertSubset(mozart, venue);
+    assertSubset(returnedvenue, venue);
   });
 
   test("delete One Playist - success", async () => {
