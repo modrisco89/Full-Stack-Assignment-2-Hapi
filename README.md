@@ -1,4 +1,4 @@
-# WeatherTop
+# Venuely
 Assignment 1, Full Stack Web Development - Computer Science
 
 ## Project Description
