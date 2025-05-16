@@ -7,6 +7,7 @@ import { Info } from "./info.js";
 export const venueMongoStore = {
   async getAllvenues() {
     const venues = await Venue.find().lean();
+    console.log(venues);
     return venues;
   },
 

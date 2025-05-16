@@ -1,13 +1,16 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
+import { createToken } from "./jwt-utils.js";
 
 export const userApi = {
   find: {
-    auth: false,
-    handler: async function(request, h) {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
       try {
-        const users = await db.userStore.getAllUsers();
-        return users;
+        const users = await db.userStore.find();
+        return h.response(users).code(200);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }
@@ -15,29 +18,31 @@ export const userApi = {
   },
 
   findOne: {
-    auth: false,
-    handler: async function(request, h) {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
       try {
-        const user = await db.userStore.getUserById(request.params.id);
+        const user = await db.userStore.findOne(request.params.id);
         if (!user) {
           return Boom.notFound("No User with this id");
         }
-        return user;
+        return h.response(user).code(200);
       } catch (err) {
-        return Boom.serverUnavailable("No User with this id");
+        return Boom.serverUnavailable("Database Error");
       }
     },
   },
 
   create: {
     auth: false,
-    handler: async function(request, h) {
+    handler: async function (request, h) {
       try {
-        const user = await db.userStore.addUser(request.payload);
-        if (user) {
-          return h.response(user).code(201);
-        }
-        return Boom.badImplementation("error creating user");
+        console.log("HERE");
+        const userPayload = request.payload;
+        console.log(userPayload);
+        const user = await db.userStore.add(userPayload);
+        return h.response({ success: true }).code(201);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }
@@ -45,11 +50,43 @@ export const userApi = {
   },
 
   deleteAll: {
-    auth: false,
-    handler: async function(request, h) {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
       try {
-        await db.userStore.deleteAll();
+        await db.userStore.delete();
         return h.response().code(204);
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+  },
+
+  authenticate: {
+    auth: false,
+    handler: async function (request, h) {
+      const {payload} = request;
+      try {
+        const user = await db.userStore.getUserByEmail(payload.email);
+        if (!user) {
+          return Boom.unauthorized("User not found");
+        }
+
+        const passwordsMatch = payload.password === user.password;
+        if (!passwordsMatch) {
+          return Boom.unauthorized("Invalid password");
+        }
+
+        const token = createToken(user);
+        return h
+          .response({
+            success: true,
+            name: `${user.firstName} ${user.lastName}`,
+            token: token,
+            _id: user._id,
+          })
+          .code(201);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }

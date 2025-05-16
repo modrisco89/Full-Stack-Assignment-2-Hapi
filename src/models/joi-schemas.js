@@ -30,6 +30,13 @@ export const venueSpec = Joi.object({
   longitude: Joi.number().required(),
   capacity: Joi.string().valid("Small", "Medium", "Large").required(),
   imagefile: Joi.any().optional(), 
+  userid: Joi.string().optional()
 });
 
+export const JwtAuth = Joi.object()
+  .keys({
+    success: Joi.boolean().example("true").required(),
+    token: Joi.string().example("G7m!xPz@qW9vK$2rTbC!4LdN6YfJ&X0Z").required(),
+  })
+  .label("JwtAuth");
 

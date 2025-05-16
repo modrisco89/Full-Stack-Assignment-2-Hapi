@@ -1,12 +1,16 @@
 import Boom from "@hapi/boom";
-import { venueSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 
 export const venueApi = {
+  
   find: {
-    auth: false,
+    
+    auth: {
+       strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
+        console.log("did I get here? 2");
         const venues = await db.venueStore.getAllvenues();
         return venues;
       } catch (err) {
@@ -15,8 +19,11 @@ export const venueApi = {
     },
   },
 
+
   findOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     async handler(request) {
       try {
         const venue = await db.venueStore.getvenueById(request.params.id);
@@ -31,7 +38,9 @@ export const venueApi = {
   },
 
   create: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const venue = request.payload;
@@ -47,7 +56,9 @@ export const venueApi = {
   },
 
   deleteOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const venue = await db.venueStore.getvenueById(request.params.id);
@@ -63,7 +74,9 @@ export const venueApi = {
   },
 
   deleteAll: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         await db.venueStore.deleteAllvenues();
