@@ -1,5 +1,6 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
+import { imageStore } from "../models/image-store.js"; // new
 
 export const venueApi = {
   
@@ -10,7 +11,7 @@ export const venueApi = {
     },
     handler: async function (request, h) {
       try {
-        console.log("did I get here? 2");
+        
         const venues = await db.venueStore.getAllvenues();
         return venues;
       } catch (err) {
@@ -65,6 +66,7 @@ export const venueApi = {
         if (!venue) {
           return Boom.notFound("No venue with this id");
         }
+        await imageStore.deleteImage(venue.imgId);
         await db.venueStore.deletevenueById(venue._id);
         return h.response().code(204);
       } catch (err) {
@@ -86,4 +88,33 @@ export const venueApi = {
       }
     },
   },
+
+// new
+   uploadImage: {
+    auth: {
+      strategy: "jwt",
+    },
+    payload: {
+    maxBytes: 10 * 1024 * 1024,
+    output: "file",
+    parse: true,
+    multipart: true,                
+    allow: ["multipart/form-data"]
+  },
+    handler: async function (request, h) {
+      try {
+        const img = request.payload.imagefile;
+        const newimg = await imageStore.uploadImage2(img);
+        if (newimg) {
+          return h.response(newimg).code(201);
+        }
+        return Boom.badImplementation("error uploading img");
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+  },
+
+
+
 };

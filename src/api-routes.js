@@ -12,12 +12,13 @@ export const apiRoutes = [
 
 
   { method: "POST", path: "/api/venues", config: venueApi.create },
+  { method: "POST", path: "/api/venues/upload", config: venueApi.uploadImage },
   { method: "DELETE", path: "/api/venues", config: venueApi.deleteAll },
   { method: "GET", path: "/api/venues", config: venueApi.find },
   { method: "GET", path: "/api/venues/{id}", config: venueApi.findOne },
   { method: "DELETE", path: "/api/venues/{id}", config: venueApi.deleteOne },
 
-  { method: "GET", path: "/api/infos", config: infoApi.find },
+  { method: "GET", path: "/api/venues/{id}/infos", config: infoApi.find },
   { method: "GET", path: "/api/infos/{id}", config: infoApi.findOne },
   { method: "POST", path: "/api/venues/{id}/infos", config: infoApi.create },
   { method: "DELETE", path: "/api/infos", config: infoApi.deleteAll },

@@ -35,6 +35,7 @@ async function init() {
       origins: ["http://localhost:5173"],  // Specify the allowed origin (your Svelte frontend)
       allowCredentials: "true",  // Allows credentials (cookies) to be sent
       exposeHeaders: ["Authorization"],
+      methods: ["GET", "POST", "DELETE", "PUT"],
       headers: ["Authorization", "Content-Type"]
     },
   });

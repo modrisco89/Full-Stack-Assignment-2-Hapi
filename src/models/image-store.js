@@ -24,6 +24,12 @@ export const imageStore = {
     return response.url;
   },
 
+  uploadImage2: async function (imagefile) {
+  const response = await cloudinary.v2.uploader.upload(imagefile.path);
+  return { imgId: response.public_id, url: response.secure_url };
+},
+
+
   deleteImage: async function(img) {
     await cloudinary.v2.uploader.destroy(img, {});
   }

@@ -3,10 +3,12 @@ import { db } from "../models/db.js";
 
 export const infoApi = {
   find: {
-    auth: false,
+    auth: {
+       strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
-        const infos = await db.infoStore.getAllinfos();
+        const infos = await db.infoStore.getinfosByvenueId(request.params.id);
         return infos;
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
@@ -15,7 +17,9 @@ export const infoApi = {
   },
 
   findOne: {
-    auth: false,
+    auth: {
+       strategy: "jwt",
+    },
     async handler(request) {
       try {
         const info = await db.infoStore.getinfoById(request.params.id);
@@ -30,7 +34,9 @@ export const infoApi = {
   },
 
   create: {
-    auth: false,
+    auth: {
+       strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const info = await db.infoStore.addinfo(request.params.id, request.payload);
@@ -45,7 +51,9 @@ export const infoApi = {
   },
 
   deleteAll: {
-    auth: false,
+    auth: {
+       strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         await db.infoStore.deleteAllinfos();
@@ -57,7 +65,9 @@ export const infoApi = {
   },
 
   deleteOne: {
-    auth: false,
+    auth: {
+       strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const info = await db.infoStore.getinfoById(request.params.id);
