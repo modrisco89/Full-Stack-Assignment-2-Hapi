@@ -30,7 +30,7 @@ N/A
 Venue owners may want to log bands playing for event promoters to bring more people to the shows
 
 ## Documentation
-[https://elegant-valuable-armadillo.glitch.me/](https://concise-foam-newsprint.glitch.me/)
+https://concise-foam-newsprint.glitch.me/
 
 ## Contributing Guidelines
 N/A
