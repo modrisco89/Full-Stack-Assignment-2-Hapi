@@ -1,12 +1,12 @@
 # Venuely
-Assignment 1, Full Stack Web Development - Computer Science
+Assignment 2, Full Stack Web Development - Computer Science
 
 ## Project Description
 This website is for logging bands within venues
 
 ## Installation Instructions
 No installation instructions required, just an internet connection.
-https://elegant-valuable-armadillo.glitch.me/
+[(https://concise-foam-newsprint.glitch.me/)](https://concise-foam-newsprint.glitch.me/)
 
 ## Usage
 1. Please add admin user using the sign up button, with the name "admin", this will set a parameter to true to determine which user is the Admin.
@@ -30,7 +30,7 @@ N/A
 Venue owners may want to log bands playing for event promoters to bring more people to the shows
 
 ## Documentation
-https://elegant-valuable-armadillo.glitch.me/
+[https://elegant-valuable-armadillo.glitch.me/](https://concise-foam-newsprint.glitch.me/)
 
 ## Contributing Guidelines
 N/A
